@@ -3,16 +3,16 @@ import { Metadata, Viewport } from 'next'
 import { ReactNode } from 'react'
 
 export const metadata: Metadata = {
-  description: 'This site is a starter template for Next.js with App Router.',
-  metadataBase: new URL('https://sacri.jp'),
+  description: 'YouTube「日本一わかりやすい App Router 入門」シリーズで解説する際のサンプルコード',
   openGraph: {
-    description: 'This site is a starter template for Next.js with App Router.',
+    description:
+      'YouTube「日本一わかりやすい App Router 入門」シリーズで解説する際のサンプルコード',
     images: [],
-    title: 'Next.js App Router Starter',
+    title: '日本一わかりやすい App Router 入門',
   },
   title: {
-    default: 'Next.js App Router Starter',
-    template: '%s | Next.js App Router Starter',
+    default: '日本一わかりやすい App Router 入門',
+    template: '%s | 日本一わかりやすい App Router 入門',
   },
   twitter: {
     card: 'summary_large_image',

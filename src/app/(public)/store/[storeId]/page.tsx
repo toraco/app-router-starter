@@ -1,3 +1,9 @@
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: '店舗ページ',
+}
+
 type Props = {
   params: Promise<{ storeId: string }>
 }

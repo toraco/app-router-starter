@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "moduleResolution": "node",
     "jsx": "preserve",
     "target": "es5",
