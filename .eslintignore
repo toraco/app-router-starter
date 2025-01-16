@@ -1,0 +1,3 @@
+**/*.js
+/**/constants/city.ts
+src/core/domain/graphql/generated.d.ts
