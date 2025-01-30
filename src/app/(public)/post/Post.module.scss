@@ -1,0 +1,15 @@
+.categoryList {
+  display: flex;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 8px 0;
+  list-style: none;
+}
+
+.postList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding: 8px 0;
+  list-style: none;
+}
