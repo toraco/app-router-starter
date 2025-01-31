@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams
     const categoryId = searchParams.get('categoryId')
     // 本来であればここにデータベースから取得する処理を記述する
-    await sleep(1000)
+    await sleep(3000)
     const filteredPosts = posts.filter((post) =>
       categoryId === null ? true : post.categoryId === Number(categoryId),
     )

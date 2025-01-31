@@ -1,7 +1,9 @@
 import { Metadata } from 'next'
+import { Suspense } from 'react'
+import Skeleton from 'components/Skeleton'
 import CategoryTag from './_components/CategoryTag'
-import PostCard from './_components/PostCard'
-import { listCategory, listPostByCategory } from './fetcher'
+import PostCardContainer from './_components/PostCardContainer'
+import { listCategory } from './fetcher'
 import styles from './Post.module.scss'
 
 export const metadata: Metadata = {
@@ -15,7 +17,7 @@ type Props = {
 export default async function Page({ searchParams }: Props) {
   const { categoryId } = await searchParams
   const categories = await listCategory()
-  const posts = await listPostByCategory(categoryId)
+  const cid = typeof categoryId === 'string' ? categoryId : ''
 
   return (
     <div>
@@ -27,16 +29,21 @@ export default async function Page({ searchParams }: Props) {
             <CategoryTag
               category={category}
               key={category.id}
-              isActive={category.id === Number(categoryId)}
+              isActive={category.id === Number(cid)}
             />
           )
         })}
       </ul>
       <h2>Posts</h2>
       <div className={styles.postList}>
-        {posts.map((post) => (
-          <PostCard post={post} key={post.id} />
-        ))}
+        <Suspense
+          key={cid}
+          fallback={[...Array(2)].map((_, index) => (
+            <Skeleton key={index} height={80} />
+          ))}
+        >
+          <PostCardContainer categoryId={cid} />
+        </Suspense>
       </div>
     </div>
   )
