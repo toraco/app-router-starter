@@ -1,4 +1,6 @@
 import { ReactNode } from 'react'
+import Sidebar from 'components/Sidebar'
+import CartMenu from 'components/Sidebar/_components/CartMenu'
 import styles from './layout.module.scss'
 
 export default function PrivateLayout({ children }: { children: ReactNode }) {
@@ -9,11 +11,18 @@ export default function PrivateLayout({ children }: { children: ReactNode }) {
   // }
   return (
     <>
-      <header>Private Page Header</header>
+      <header className={styles.header}>
+        <div className={styles.headerInner}>Private Page Header</div>
+      </header>
       <main className={styles.main}>
         <div className={styles.privatePage}>{children}</div>
+        <Sidebar>
+          <CartMenu />
+        </Sidebar>
       </main>
-      <footer>Private Page Footer</footer>
+      <footer className={styles.footer}>
+        <div className={styles.footerInner}>Private Page Footer</div>
+      </footer>
     </>
   )
 }

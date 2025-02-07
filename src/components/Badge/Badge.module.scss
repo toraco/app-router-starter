@@ -1,0 +1,24 @@
+
+.wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.badge {
+  align-items: center;
+  background-color: #222222;
+  border-radius: 200px;
+  color: #ffffff;
+  display: flex;
+  font-size: 10px;
+  font-weight: bold;
+  justify-content: center;
+  line-height: 10px;
+  height: 16px;
+  min-width: 16px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -25%);
+}

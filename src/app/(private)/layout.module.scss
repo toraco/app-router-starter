@@ -13,3 +13,27 @@
   padding: 16px;
   width: 100%;
 }
+
+.header {
+  border-bottom: 1px solid #cccccc;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.headerInner {
+  margin: 0 auto;
+  max-width: 768px;
+  padding: 16px;
+}
+
+.footer {
+  border-top: 1px solid #cccccc;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.footerInner {
+  margin: 0 auto;
+  max-width: 768px;
+  padding: 16px;
+}
