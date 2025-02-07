@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'カート',
 }
 
-export default async function CartPresentation() {
+export default async function Page() {
   const cart = await getCart()
   return (
     <div>
