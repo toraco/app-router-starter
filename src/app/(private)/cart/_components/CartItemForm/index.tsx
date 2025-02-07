@@ -44,13 +44,18 @@ export default function CartItemForm({ cart }: Props) {
           <li key={item.id} className={styles.cartItem}>
             <span className={styles.name}>{item.name}</span>
             <span className={styles.quantity}>{item.quantity}個</span>
-            <button className={styles.button} onClick={() => handleIncrement(item.id)}>
+            <button
+              className={styles.button}
+              onClick={() => handleIncrement(item.id)}
+              type="button"
+            >
               +
             </button>
             <button
               className={styles.button}
               disabled={item.quantity === 0}
               onClick={() => handleDecrement(item.id)}
+              type="button"
             >
               -
             </button>
