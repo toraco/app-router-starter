@@ -1,20 +1,20 @@
 import { NextResponse } from 'next/server'
-import { DUMMY_CATEGORIES } from 'constants/category'
+import { DUMMY_AUTHORS } from 'constants/author'
 import { sleep } from '../utils'
 
 export async function GET() {
   try {
-    await sleep(500)
+    await sleep(3000)
     return NextResponse.json(
-      { categories: DUMMY_CATEGORIES, message: 'カテゴリを取得しました。' },
+      { authors: DUMMY_AUTHORS, message: '筆者を取得しました。' },
       { status: 200 },
     )
   } catch (error) {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'カテゴリの取得に失敗しました。',
-        posts: [],
+        authors: [],
+        message: '筆者の取得に失敗しました。',
       },
       { status: 500 },
     )

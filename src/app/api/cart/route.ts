@@ -6,6 +6,7 @@ export async function GET() {
   try {
     // 本来であれば Headers や Cookie からユーザーのセッショントークンを取得してデータベースから取得する
     await sleep(1000)
+    console.log('カートを取得します')
 
     const cart: Cart = {
       amount: 1000,
