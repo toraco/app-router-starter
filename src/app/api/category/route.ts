@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server'
-import { Category } from 'core/domain/entity/category'
+import { DUMMY_CATEGORIES } from 'constants/category'
 import { sleep } from '../utils'
 
 export async function GET() {
   try {
     await sleep(500)
-    return NextResponse.json({ categories, message: 'カテゴリを取得しました。' }, { status: 200 })
+    return NextResponse.json(
+      { categories: DUMMY_CATEGORIES, message: 'カテゴリを取得しました。' },
+      { status: 200 },
+    )
   } catch (error) {
     console.error(error)
     return NextResponse.json(
@@ -17,18 +20,3 @@ export async function GET() {
     )
   }
 }
-
-const categories: Category[] = [
-  {
-    id: 1,
-    name: 'Frontend',
-  },
-  {
-    id: 2,
-    name: 'Backend',
-  },
-  {
-    id: 3,
-    name: 'Infrastructure',
-  },
-]

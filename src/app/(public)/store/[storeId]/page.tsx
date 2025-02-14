@@ -1,5 +1,7 @@
 import { Metadata } from 'next'
-import ClientSection from './_components/ClientSection'
+import { Suspense } from 'react'
+import Skeleton from '../../../../components/Skeleton'
+import CategoryContainer from './_components/CategoryContainer'
 import { getStore } from './fetcher'
 
 export const metadata: Metadata = {
@@ -22,7 +24,9 @@ export default async function Page({ params, searchParams }: Props) {
       <p>Store ID: {storeId}.</p>
       <p>Store category: {category}.</p>
       <p>Address: {store.address}</p>
-      <ClientSection />
+      <Suspense fallback={<Skeleton height={128} />}>
+        <CategoryContainer />
+      </Suspense>
     </div>
   )
 }

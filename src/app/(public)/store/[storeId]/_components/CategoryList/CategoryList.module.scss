@@ -1,0 +1,19 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.list {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  list-style: none;
+  gap: 16px;
+}
+
+.listItem {
+  font-size: 16px;
+  font-weight: 500;
+}
