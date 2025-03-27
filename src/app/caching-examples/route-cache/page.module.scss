@@ -1,0 +1,135 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.explanation {
+  background-color: #f0f7ff;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 4px solid #0070f3;
+
+  p {
+    margin: 10px 0;
+  }
+
+  code {
+    background-color: #e6e6e6;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace;
+  }
+}
+
+.results {
+  margin: 30px 0;
+}
+
+.resultCard {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+
+  h3 {
+    margin-top: 0;
+    color: #0070f3;
+  }
+
+  p {
+    margin-bottom: 15px;
+  }
+}
+
+.comparison {
+  margin: 30px 0;
+}
+
+.comparisonTable {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 15px 0;
+}
+
+.comparisonRow {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.comparisonHeader {
+  flex: 1;
+  padding: 12px 15px;
+  background-color: #f5f5f5;
+  font-weight: 600;
+  text-align: center;
+  border-right: 1px solid #e0e0e0;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.comparisonCell {
+  flex: 1;
+  padding: 12px 15px;
+  border-right: 1px solid #e0e0e0;
+
+  &:last-child {
+    border-right: none;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 20px;
+
+    li {
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.links {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #0070f3;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0051a2;
+  }
+}
+
+.codeExample {
+  margin: 30px 0;
+
+  pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: monospace;
+    line-height: 1.5;
+    border: 1px solid #e0e0e0;
+  }
+}

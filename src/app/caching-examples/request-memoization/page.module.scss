@@ -1,0 +1,61 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.explanation {
+  background-color: #f0f7ff;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 4px solid #0070f3;
+
+  p {
+    margin: 10px 0;
+  }
+
+  code {
+    background-color: #e6e6e6;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace;
+  }
+}
+
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.codeExample {
+  margin: 30px 0;
+
+  pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: monospace;
+    line-height: 1.5;
+    border: 1px solid #e0e0e0;
+  }
+}
+
+.note {
+  background-color: #fffaf0;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  border-left: 4px solid #f0c040;
+
+  ul {
+    margin: 10px 0;
+    padding-left: 20px;
+
+    li {
+      margin-bottom: 5px;
+    }
+  }
+}
