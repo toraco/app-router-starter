@@ -100,7 +100,7 @@ flowchart TD
 時間ベースの再検証とオンデマンド再検証、およびキャッシュクリアの方法を整理して示しています。
 revalidateTag、revalidatePath、動的関数の使用など、各種再検証方法を並列して表示しています。
 
-```
+```mermaid
 flowchart LR
     subgraph "時間ベースの再検証"
         A[fetch with revalidate] --> B[指定時間後に自動的に再検証]
@@ -132,7 +132,7 @@ flowchart LR
 静的レンダリングと動的レンダリングの特性、メリット、使用条件を対比して示しています。
 どのような条件で動的レンダリングが選択されるかを明確にしています。
 
-```
+```mermaid
 graph TD
     subgraph "静的レンダリング"
         A[ビルド時にレンダリング] --> B[データはキャッシュされる]
@@ -166,7 +166,7 @@ graph TD
 シーケンス図を使って、ユーザーのナビゲーションとRouter Cacheの相互作用を時系列で示しています。
 prefetch、ハード更新、router.refresh()などの動作の違いを表現しています。
 
-```
+```mermaid
 sequenceDiagram
     participant U as ユーザー
     participant RC as Router Cache
@@ -201,7 +201,7 @@ sequenceDiagram
 プロジェクトのデータ要件に基づいて、適切なキャッシュ戦略を選択するための意思決定フローを示しています。
 静的vs動的、再検証頻度、ユーザー固有データの必要性などの条件分岐を含みます。
 
-```
+```mermaid
 flowchart TD
     A[データ要件分析] --> B{データは頻繁に変更する?}
     B -->|Yes| C[動的レンダリング検討]
