@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { sleep } from '../../utils'
+import { sleep } from '../utils'
 
 // This API endpoint returns the current timestamp and a random number
 // It also has an artificial delay to simulate a real API call
@@ -17,12 +17,12 @@ export async function GET() {
     // Return the data
     return NextResponse.json(
       {
-        message: 'Success',
         data: {
-          timestamp,
-          randomValue,
           note: 'このデータが変わらない場合はキャッシュから取得されています',
+          randomValue,
+          timestamp,
         },
+        message: 'Success',
       },
       { status: 200 },
     )
@@ -30,8 +30,8 @@ export async function GET() {
     console.error(error)
     return NextResponse.json(
       {
-        message: 'Error fetching timestamp',
         data: null,
+        message: 'Error fetching timestamp',
       },
       { status: 500 },
     )

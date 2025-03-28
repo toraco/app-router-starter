@@ -8,8 +8,8 @@ type TimestampData = {
 
 export default function TimestampDisplay({
   data,
-  label,
   fetchTime,
+  label,
 }: {
   data: TimestampData
   label: string

@@ -1,8 +1,8 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import styles from './page.module.scss'
 
 export default function RouterCachePage() {

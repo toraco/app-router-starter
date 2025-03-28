@@ -19,7 +19,7 @@ export async function fetchTimestamp(cacheOption?: RequestCache): Promise<{
   const startTime = performance.now()
 
   // キャッシュオプションを指定してフェッチ
-  const res = await fetch('http://localhost:3000/api/caching-examples/timestamp', {
+  const res = await fetch('http://localhost:3000/api/timestamp', {
     cache: cacheOption,
   })
 
@@ -43,7 +43,7 @@ export async function fetchTimestampWithRevalidate(seconds: number): Promise<{
 }> {
   const startTime = performance.now()
 
-  const res = await fetch('http://localhost:3000/api/caching-examples/timestamp', {
+  const res = await fetch('http://localhost:3000/api/timestamp', {
     next: { revalidate: seconds },
   })
 
@@ -67,7 +67,7 @@ export async function fetchTimestampWithTag(tag: string): Promise<{
 }> {
   const startTime = performance.now()
 
-  const res = await fetch('http://localhost:3000/api/caching-examples/timestamp', {
+  const res = await fetch('http://localhost:3000/api/timestamp', {
     next: { tags: [tag] },
   })
 
