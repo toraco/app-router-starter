@@ -3,7 +3,7 @@ import { notes } from 'constants/note'
 import { Note } from 'core/domain/entity/note'
 
 // GET /api/notes/[id] - 特定のノートを取得
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const note = notes.find((note) => note.id === id)
 
@@ -15,7 +15,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
 }
 
 // PUT /api/notes/[id] - 特定のノートを更新
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
     const body = await request.json()
@@ -47,7 +47,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 }
 
 // DELETE /api/notes/[id] - 特定のノートを削除
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
 

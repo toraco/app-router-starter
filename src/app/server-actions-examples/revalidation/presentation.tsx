@@ -2,9 +2,9 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { Note } from 'core/domain/entity/note'
 import { deleteNote, updateNote } from '../_lib/actions'
 import styles from './page.module.scss'
-import { Note } from 'core/domain/entity/note'
 
 type Props = {
   notes: Note[]
