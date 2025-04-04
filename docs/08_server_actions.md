@@ -1,42 +1,6 @@
-# Next.js App Router データ取得と再検証の解説動画
+# Server Actions と revalidate
 
-## 動画構成
-
-1. **イントロダクション**
-
-   - 挨拶と今回のテーマ紹介
-   - Next.js App Routerのデータフェッチングの重要性
-
-2. **fetch options.next.revalidate**
-
-   - 概念説明
-   - 使用方法と実装例
-   - ユースケースとベストプラクティス
-
-3. **fetch options.next.tags と revalidateTag**
-
-   - タグベースの再検証の仕組み
-   - 実装方法とサンプルコード
-   - 効果的な使用シナリオ
-
-4. **revalidatePath / revalidateTag**
-
-   - オンデマンド再検証の概念
-   - 両メソッドの違いと使い分け
-   - 実装例
-
-5. **Server Actions**
-
-   - Server Actionsの基本概念
-   - フォーム処理との統合
-   - データ変更後の再検証パターン
-
-6. **まとめとベストプラクティス**
-   - 各機能のまとめ
-   - ユースケース別の機能選択ガイド
-   - パフォーマンスとUXの最適化ポイント
-
-## 原稿
+## 解説
 
 ### 1. イントロダクション
 
@@ -579,6 +543,44 @@ Next.js App Routerにおけるデータ取得と再検証機能の特徴とユ�
    - サーバーサイド処理のシームレスな統合
    - フォーム処理と再検証の併用
    - 複数の実装パターンが利用可能
+
+```mermaid
+flowchart TB
+    subgraph "Next.js App Router"
+        Client[/"Client Component"/]
+        form["フォーム送信"]
+        Server["Server Action\n'use server'"]
+        DB[("データベース")]
+        cache[("Next.js Cache")]
+
+        subgraph "Revalidation Methods"
+            revalidatePath["revalidatePath('/path')"]
+            revalidateTag["revalidateTag('tag-name')"]
+        end
+    end
+
+    Client -->|"フォーム送信"| form
+    form -->|"use server関数呼び出し"| Server
+    Server -->|"1. データ更新"| DB
+
+    Server -->|"2a. パスベースでキャッシュ更新"| revalidatePath
+    Server -->|"2b. タグベースでキャッシュ更新"| revalidateTag
+
+    revalidatePath -->|"指定されたパスの\nキャッシュを無効化"| cache
+    revalidateTag -->|"指定されたタグの\nキャッシュを無効化"| cache
+
+    cache -->|"3. 更新されたデータ\nで再レンダリング"| Client
+
+    classDef serverComponents fill:#e0f7fa,stroke:#00acc1,color:black
+    classDef clientComponents fill:#fff8e1,stroke:#ffc107,color:black
+    classDef datastore fill:#e8f5e9,stroke:#4caf50,color:black
+    classDef revalidation fill:#f3e5f5,stroke:#9c27b0,color:black
+
+    class Server,revalidatePath,revalidateTag serverComponents
+    class Client,form clientComponents
+    class DB,cache datastore
+    class revalidatePath,revalidateTag revalidation
+```
 
 #### ユースケース別の機能選択ガイド
 
