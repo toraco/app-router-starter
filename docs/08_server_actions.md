@@ -2,36 +2,36 @@
 
 ## 動画構成
 
-1. **イントロダクション** (1分)
+1. **イントロダクション**
 
    - 挨拶と今回のテーマ紹介
    - Next.js App Routerのデータフェッチングの重要性
 
-2. **fetch options.next.revalidate** (5分)
+2. **fetch options.next.revalidate**
 
    - 概念説明
    - 使用方法と実装例
    - ユースケースとベストプラクティス
 
-3. **fetch options.next.tags と revalidateTag** (5分)
+3. **fetch options.next.tags と revalidateTag**
 
    - タグベースの再検証の仕組み
    - 実装方法とサンプルコード
    - 効果的な使用シナリオ
 
-4. **revalidatePath / revalidateTag** (5分)
+4. **revalidatePath / revalidateTag**
 
    - オンデマンド再検証の概念
    - 両メソッドの違いと使い分け
    - 実装例
 
-5. **Server Actions** (7分)
+5. **Server Actions**
 
    - Server Actionsの基本概念
    - フォーム処理との統合
    - データ変更後の再検証パターン
 
-6. **まとめとベストプラクティス** (2分)
+6. **まとめとベストプラクティス**
    - 各機能のまとめ
    - ユースケース別の機能選択ガイド
    - パフォーマンスとUXの最適化ポイント
