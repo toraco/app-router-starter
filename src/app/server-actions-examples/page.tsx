@@ -46,28 +46,6 @@ export default function ServerActionsExamplesPage() {
             データ更新と再検証の例を見る
           </Link>
         </div>
-
-        <div className={styles.exampleCard}>
-          <h3>Optimistic Updates</h3>
-          <p>
-            Server Actionsと組み合わせて、Optimistic UI更新を実装する例です。
-            ユーザー操作に対して即座にUIを更新し、バックグラウンドでサーバー処理を行います。
-          </p>
-          <Link href="/server-actions-examples/optimistic-updates" className={styles.link}>
-            Optimistic Updatesの例を見る
-          </Link>
-        </div>
-
-        <div className={styles.exampleCard}>
-          <h3>バリデーションとエラーハンドリング</h3>
-          <p>
-            Server Actionsでのフォームバリデーションとエラーハンドリングの例です。
-            サーバーサイドでの検証とクライアントへのエラーメッセージの返却方法を示します。
-          </p>
-          <Link href="/server-actions-examples/validation" className={styles.link}>
-            バリデーションとエラーハンドリングの例を見る
-          </Link>
-        </div>
       </div>
 
       <div className={styles.codeExample}>
