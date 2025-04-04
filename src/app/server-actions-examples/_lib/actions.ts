@@ -1,15 +1,7 @@
 'use server'
 
 import { revalidatePath, revalidateTag } from 'next/cache'
-
-// タイムスタンプデータの型定義
-export type NoteData = {
-  id: string
-  title: string
-  content: string
-  createdAt: string
-  updatedAt: string
-}
+import { Note } from 'core/domain/entity/note'
 
 // ノート作成用の型
 export type CreateNoteInput = {
@@ -31,40 +23,30 @@ export type ActionResult<T = unknown> = {
   data?: T
 }
 
-// メモリ内のノートデータストア（実際のアプリではデータベースを使用）
-let notes: NoteData[] = [
-  {
-    content: 'App Routerは、Next.js 13から導入された新しいルーティングシステムです。',
-    createdAt: new Date(Date.now() - 86400000).toISOString(),
-    id: '1',
-    title: 'Next.js App Routerについて', // 1日前
-    updatedAt: new Date(Date.now() - 86400000).toISOString(),
-  },
-  {
-    content:
-      'Server Actionsは、クライアントコンポーネントからサーバー関数を直接呼び出せる機能です。',
-    createdAt: new Date(Date.now() - 43200000).toISOString(),
-    id: '2',
-    title: 'Server Actionsの基本', // 12時間前
-    updatedAt: new Date(Date.now() - 43200000).toISOString(),
-  },
-]
-
 // すべてのノートを取得する関数
-export async function getNotes(): Promise<NoteData[]> {
-  // 実際のアプリではデータベースからデータを取得
-  return [...notes]
+export async function getNotes(): Promise<Note[]> {
+  const res = await fetch('http://localhost:3000/api/notes', {
+    next: { tags: ['notes'] },
+  })
+  if (!res.ok) {
+    throw new Error('Failed to fetch notes')
+  }
+  return res.json()
 }
 
 // IDでノートを取得する関数
-export async function getNote(id: string): Promise<NoteData | null> {
-  // 実際のアプリではデータベースからデータを取得
-  const note = notes.find((note) => note.id === id)
-  return note || null
+export async function getNote(id: string): Promise<Note | null> {
+  const res = await fetch(`http://localhost:3000/api/notes/${id}`, {
+    next: { tags: ['notes', `note-${id}`] },
+  })
+  if (!res.ok) {
+    throw new Error('Failed to fetch notes')
+  }
+  return res.json()
 }
 
 // ノートを作成するServer Action
-export async function createNote(input: CreateNoteInput): Promise<ActionResult<NoteData>> {
+export async function createNote(input: CreateNoteInput): Promise<ActionResult<Note>> {
   try {
     // 入力検証
     if (!input.title.trim()) {
@@ -72,16 +54,26 @@ export async function createNote(input: CreateNoteInput): Promise<ActionResult<N
     }
 
     // 新しいノートを作成
-    const newNote: NoteData = {
-      content: input.content, createdAt: new Date().toISOString(),
+    const newNote: Note = {
+      content: input.content,
+      createdAt: new Date().toISOString(),
       id: Date.now().toString(),
       // 実際のアプリではUUIDなどを使用
       title: input.title,
       updatedAt: new Date().toISOString(),
     }
 
-    // ノートを保存（実際のアプリではデータベースに保存）
-    notes = [...notes, newNote]
+    const res = await fetch('http://localhost:3000/api/notes', {
+      body: JSON.stringify(newNote),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      next: { tags: ['notes'] },
+    })
+    if (!res.ok) {
+      return { error: 'ノートの作成に失敗しました', success: false }
+    }
 
     // キャッシュを再検証
     revalidateTag('notes')
@@ -94,7 +86,7 @@ export async function createNote(input: CreateNoteInput): Promise<ActionResult<N
 }
 
 // ノートを更新するServer Action
-export async function updateNote(input: UpdateNoteInput): Promise<ActionResult<NoteData>> {
+export async function updateNote(input: UpdateNoteInput): Promise<ActionResult<Note>> {
   try {
     // 入力検証
     if (!input.id) {
@@ -104,28 +96,30 @@ export async function updateNote(input: UpdateNoteInput): Promise<ActionResult<N
       return { error: 'タイトルは必須です', success: false }
     }
 
-    // ノートを検索
-    const noteIndex = notes.findIndex((note) => note.id === input.id)
-    if (noteIndex === -1) {
-      return { error: 'ノートが見つかりません', success: false }
-    }
-
     // ノートを更新
-    const updatedNote: NoteData = {
-      ...notes[noteIndex],
+    const updatedNote: Omit<Note, 'id' | 'createdAt'> = {
       content: input.content,
       title: input.title,
       updatedAt: new Date().toISOString(),
     }
 
-    // 更新したノートを保存
-    notes = [...notes.slice(0, noteIndex), updatedNote, ...notes.slice(noteIndex + 1)]
+    const res = await fetch(`http://localhost:3000/api/notes/${input.id}`, {
+      body: JSON.stringify(updatedNote),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'PUT',
+      next: { tags: ['notes', `note-${input.id}`] },
+    })
+    if (!res.ok) {
+      return { error: 'ノートの更新に失敗しました', success: false }
+    }
 
     // キャッシュを再検証
     revalidateTag('notes')
     revalidateTag(`note-${input.id}`)
 
-    return { data: updatedNote, success: true }
+    return { success: true }
   } catch (error) {
     console.error('ノート更新エラー:', error)
     return { error: '不明なエラーが発生しました', success: false }
@@ -140,14 +134,13 @@ export async function deleteNote(id: string): Promise<ActionResult<void>> {
       return { error: 'ノートIDは必須です', success: false }
     }
 
-    // ノートを検索
-    const noteIndex = notes.findIndex((note) => note.id === id)
-    if (noteIndex === -1) {
-      return { error: 'ノートが見つかりません', success: false }
+    const res = await fetch(`http://localhost:3000/api/notes/${id}`, {
+      method: 'DELETE',
+      next: { tags: ['notes', `note-${id}`] },
+    })
+    if (!res.ok) {
+      return { error: 'ノートの削除に失敗しました', success: false }
     }
-
-    // ノートを削除
-    notes = [...notes.slice(0, noteIndex), ...notes.slice(noteIndex + 1)]
 
     // キャッシュを再検証
     revalidateTag('notes')
@@ -161,7 +154,7 @@ export async function deleteNote(id: string): Promise<ActionResult<void>> {
 }
 
 // タグ付きのノート取得関数（キャッシュ制御用）
-export async function getNotesWithTag(): Promise<NoteData[]> {
+export async function getNotesWithTag(): Promise<Note[]> {
   // タグ付きでノートを取得
   return await fetch('http://localhost:3000/api/notes', {
     next: { tags: ['notes'] },
@@ -174,7 +167,7 @@ export async function getNotesWithTag(): Promise<NoteData[]> {
 }
 
 // IDとタグ付きのノート取得関数（キャッシュ制御用）
-export async function getNoteWithTag(id: string): Promise<NoteData | null> {
+export async function getNoteWithTag(id: string): Promise<Note | null> {
   // タグ付きで特定のノートを取得
   return await fetch(`http://localhost:3000/api/notes/${id}`, {
     next: { tags: ['notes', `note-${id}`] },

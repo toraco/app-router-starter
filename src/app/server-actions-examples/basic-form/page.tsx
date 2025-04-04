@@ -202,7 +202,7 @@ export type CreateNoteInput = {
   content: string
 }
 
-export type NoteData = {
+export type Note = {
   id: string
   title: string
   content: string
