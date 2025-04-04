@@ -21,12 +21,6 @@ export default function ServerActionsLayout({ children }: { children: React.Reac
             <Link href="/server-actions-examples/revalidation" className={styles.navLink}>
               データ更新と再検証
             </Link>
-            <Link href="/server-actions-examples/optimistic-updates" className={styles.navLink}>
-              Optimistic Updates
-            </Link>
-            <Link href="/server-actions-examples/validation" className={styles.navLink}>
-              バリデーション
-            </Link>
           </nav>
         </div>
       </header>
